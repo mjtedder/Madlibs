@@ -13,7 +13,6 @@ var verbs = [];
 var loop = 0;
 
 var getWords = function (loop) {
-    console.log(loop);
     if (loop < 2) {
         inquirer.prompt({
             name: "noun",
@@ -41,8 +40,25 @@ var getWords = function (loop) {
         }).then(function (answers) {
             verbs.push(answers.verb);
             var madLib = new MadLib(nouns, adjectives, verbs);
-            console.log(madLib);
+            constructStory(madLib);
         })
     }
 }
+
+var constructStory = function(completeObject) {
+    for(var i = 0; i < 2; i++){
+        completeObject.story = completeObject.story.replace("[noun]",
+            completeObject.nouns[i]);
+    }
+    for(var i = 0; i < 1; i++) {
+        completeObject.story = completeObject.story.replace("[adjective]",
+            completeObject.adjectives[i]);
+    }
+    for(var i = 0; i < 1; i++) {
+        completeObject.story = completeObject.story.replace("[verb]",
+            completeObject.verbs[i]);
+    }
+    console.log(completeObject.story);
+}
+
 getWords(loop);
